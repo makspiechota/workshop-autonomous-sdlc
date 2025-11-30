@@ -7,13 +7,7 @@ export default defineConfig({
   base: process.env.GITHUB_ACTIONS ? '/workshop-autonomous-sdlc/' : '/',
   test: {
     globals: true,
-    environment: 'jsdom',
+    environment: 'happy-dom',
     setupFiles: './src/test/setup.js',
-    pool: 'forks',
-    poolOptions: {
-      forks: {
-        singleFork: true,
-      },
-    },
   },
 })
