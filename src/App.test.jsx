@@ -5,12 +5,26 @@ import App from './App'
 describe('App', () => {
   it('renders without crashing', () => {
     render(<App />)
-    expect(screen.getByText(/Vite \+ React/i)).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1 })).toBeInTheDocument()
   })
 
-  it('has working counter button', () => {
+  it('renders all main sections', () => {
     render(<App />)
-    const button = screen.getByRole('button', { name: /count is/i })
-    expect(button).toBeInTheDocument()
+
+    // Hero section
+    expect(screen.getByRole('heading', { name: /build your software factory/i })).toBeInTheDocument()
+
+    // Benefits section
+    expect(screen.getByRole('heading', { name: /why software factory/i })).toBeInTheDocument()
+
+    // Contact form
+    expect(screen.getByRole('heading', { name: /get in touch/i })).toBeInTheDocument()
+  })
+
+  it('has contact form with required fields', () => {
+    render(<App />)
+    expect(screen.getByLabelText(/name/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/message|interest|tell us/i)).toBeInTheDocument()
   })
 })
