@@ -8,14 +8,18 @@ function App() {
     throw new Error('Test error from Sentry integration - this is intentional!')
   }
 
+  // Show test button in development or when ?test=true query param is present
+  const showTestButton = import.meta.env.MODE === 'development' ||
+    new URLSearchParams(window.location.search).get('test') === 'true'
+
   return (
     <div className="app">
       <Hero />
       <Benefits />
       <ContactForm />
 
-      {/* Temporary test button - remove after verification */}
-      {import.meta.env.MODE === 'development' && (
+      {/* Test button - shows in dev or with ?test=true query parameter */}
+      {showTestButton && (
         <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 9999 }}>
           <button
             onClick={triggerTestError}
