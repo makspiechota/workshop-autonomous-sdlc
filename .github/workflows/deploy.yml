@@ -38,6 +38,8 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
 
   # Deploy job - only runs on main branch
   deploy:
@@ -63,6 +65,12 @@ jobs:
 
       - name: Build project
         run: npm run build
+        env:
+          VITE_SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ vars.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ vars.SENTRY_PROJECT }}
+          VITE_SENTRY_RELEASE: workshop-autonomous-sdlc@${{ github.sha }}
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
