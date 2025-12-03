@@ -1,0 +1,26 @@
+.example-widget {
+  /* Layout */
+  width: 100%;
+  display: block;
+  position: static;
+
+  /* Spacing */
+  padding: 16px;
+
+  /* Colors */
+  background-color: #4A90E2;
+  color: white;
+
+  /* Typography */
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+
+  /* Visual separation */
+  border-bottom: 3px solid #2E5C8A;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  /* Responsive */
+  overflow-x: hidden;
+  white-space: normal;
+}
