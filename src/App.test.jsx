@@ -18,6 +18,11 @@ vi.mock('launchdarkly-react-client-sdk', () => ({
   useLDClient: vi.fn(),
 }))
 
+// Helper to create flags with kebab-case keys
+const createFlags = (exampleWidget) => ({
+  'example-widget': exampleWidget,
+})
+
 // Import the mocked module
 import * as LD from 'launchdarkly-react-client-sdk'
 
@@ -72,7 +77,7 @@ describe('App', () => {
 
     it('should NOT render ExampleWidget when exampleWidget flag is false', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: false,
+        'example-widget': false,
       })
 
       render(<App />)
@@ -94,7 +99,7 @@ describe('App', () => {
 
     it('should render ExampleWidget when exampleWidget flag is true', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
       })
 
       render(<App />)
@@ -106,7 +111,7 @@ describe('App', () => {
 
     it('should render ExampleWidget at the top of the page when flag is true', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
       })
 
       const { container } = render(<App />)
@@ -125,7 +130,7 @@ describe('App', () => {
 
     it('should render main content even when widget is shown', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
       })
 
       render(<App />)
@@ -142,7 +147,7 @@ describe('App', () => {
   describe('Loading State Management', () => {
     it('should show loading state while flags are undefined', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: undefined,
+        'example-widget': undefined,
       })
 
       render(<App />)
@@ -158,7 +163,7 @@ describe('App', () => {
     it('should handle transition from loading to flag enabled', async () => {
       // Start with undefined (loading)
       mockUseFlags.mockReturnValue({
-        exampleWidget: undefined,
+        'example-widget': undefined,
       })
 
       const { rerender } = render(<App />)
@@ -166,7 +171,7 @@ describe('App', () => {
 
       // Simulate flags loading
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
       })
 
       rerender(<App />)
@@ -179,7 +184,7 @@ describe('App', () => {
     it('should handle transition from loading to flag disabled', async () => {
       // Start with undefined (loading)
       mockUseFlags.mockReturnValue({
-        exampleWidget: undefined,
+        'example-widget': undefined,
       })
 
       const { rerender } = render(<App />)
@@ -187,7 +192,7 @@ describe('App', () => {
 
       // Simulate flags loading with false value
       mockUseFlags.mockReturnValue({
-        exampleWidget: false,
+        'example-widget': false,
       })
 
       rerender(<App />)
@@ -201,7 +206,7 @@ describe('App', () => {
   describe('Flag Value Handling', () => {
     it('should correctly handle boolean true value', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
       })
 
       render(<App />)
@@ -210,7 +215,7 @@ describe('App', () => {
 
     it('should correctly handle boolean false value', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: false,
+        'example-widget': false,
       })
 
       render(<App />)
@@ -219,7 +224,7 @@ describe('App', () => {
 
     it('should treat null as false (widget not shown)', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: null,
+        'example-widget': null,
       })
 
       render(<App />)
@@ -228,7 +233,7 @@ describe('App', () => {
 
     it('should treat 0 as falsy (widget not shown)', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: 0,
+        'example-widget': 0,
       })
 
       render(<App />)
@@ -237,7 +242,7 @@ describe('App', () => {
 
     it('should treat empty string as falsy (widget not shown)', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: '',
+        'example-widget': '',
       })
 
       render(<App />)
@@ -248,19 +253,19 @@ describe('App', () => {
   describe('Conditional Rendering Logic', () => {
     it('should use conditional rendering (&&) for the widget', () => {
       // When true, widget appears
-      mockUseFlags.mockReturnValue({ exampleWidget: true })
+      mockUseFlags.mockReturnValue({ 'example-widget': true })
       const { rerender } = render(<App />)
       expect(screen.getByTestId('example-widget')).toBeInTheDocument()
 
       // When false, widget disappears
-      mockUseFlags.mockReturnValue({ exampleWidget: false })
+      mockUseFlags.mockReturnValue({ 'example-widget': false })
       rerender(<App />)
       expect(screen.queryByTestId('example-widget')).not.toBeInTheDocument()
     })
 
     it('should not leave empty space when widget is not shown', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: false,
+        'example-widget': false,
       })
 
       const { container } = render(<App />)
@@ -277,7 +282,7 @@ describe('App', () => {
   describe('Multiple Flag Support', () => {
     it('should work with other feature flags simultaneously', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
         otherFeature: true,
         anotherFlag: false,
       })
@@ -290,7 +295,7 @@ describe('App', () => {
 
     it('should not be affected by other flags being undefined', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
         someOtherFlag: undefined,
       })
 
@@ -302,7 +307,7 @@ describe('App', () => {
   describe('Flag Access Pattern', () => {
     it('should destructure exampleWidget flag from useFlags return value', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
       })
 
       render(<App />)
@@ -327,7 +332,7 @@ describe('App', () => {
   describe('Widget Positioning in App', () => {
     it('should render widget before or at the beginning of main content', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
       })
 
       render(<App />)
@@ -348,7 +353,7 @@ describe('App', () => {
   describe('Accessibility with Feature Flag', () => {
     it('should maintain accessibility when widget is shown', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
       })
 
       render(<App />)
@@ -363,7 +368,7 @@ describe('App', () => {
 
     it('should maintain heading hierarchy when widget is shown', () => {
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
       })
 
       render(<App />)
@@ -379,7 +384,7 @@ describe('App', () => {
       const renderCount = { count: 0 }
 
       mockUseFlags.mockReturnValue({
-        exampleWidget: false,
+        'example-widget': false,
       })
 
       const { rerender } = render(<App />)
@@ -387,7 +392,7 @@ describe('App', () => {
 
       // Change flag value
       mockUseFlags.mockReturnValue({
-        exampleWidget: true,
+        'example-widget': true,
       })
 
       rerender(<App />)

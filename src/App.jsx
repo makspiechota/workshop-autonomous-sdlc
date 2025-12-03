@@ -7,7 +7,7 @@ import './App.css'
 
 function App() {
   const flags = useFlags()
-  const { exampleWidget } = flags || {}
+  const exampleWidget = flags?.['example-widget']
   const triggerTestError = () => {
     throw new Error('Test error from Sentry integration - this is intentional!')
   }

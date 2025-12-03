@@ -48,23 +48,23 @@ const clientSideID = ldConfig.clientSideID
 
 // Wrap App with LaunchDarkly provider if configured
 async function initializeApp() {
-  let AppWithFeatureFlags = App
+  let LDProvider = null
 
   if (clientSideID) {
     try {
-      // asyncWithLDProvider returns a Promise that resolves to a wrapped component
-      AppWithFeatureFlags = await asyncWithLDProvider({
+      // asyncWithLDProvider returns a Provider component that wraps the app
+      LDProvider = await asyncWithLDProvider({
         clientSideID,
         context: ldConfig.context,
         options: ldConfig.options,
         reactOptions: {
           useCamelCaseFlagKeys: false
         }
-      })(App)
+      })
     } catch (error) {
       console.error('LaunchDarkly initialization failed:', error)
       Sentry.captureException(error)
-      // Continue with unwrapped App on error
+      // Continue without LaunchDarkly on error
     }
   } else {
     console.warn('LaunchDarkly client ID not configured. Feature flags will be unavailable.')
@@ -85,7 +85,13 @@ async function initializeApp() {
           }
           showDialog
         >
-          <AppWithFeatureFlags />
+          {LDProvider ? (
+            <LDProvider>
+              <App />
+            </LDProvider>
+          ) : (
+            <App />
+          )}
         </Sentry.ErrorBoundary>
       </StrictMode>,
     )
