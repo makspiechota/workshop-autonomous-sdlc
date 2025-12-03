@@ -13,6 +13,7 @@
   "dependencies": {
     "@formspree/react": "^3.0.0",
     "@sentry/react": "^10.27.0",
+    "launchdarkly-react-client-sdk": "^3.9.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },

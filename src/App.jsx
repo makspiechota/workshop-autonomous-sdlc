@@ -1,9 +1,13 @@
+import { useFlags } from 'launchdarkly-react-client-sdk'
 import Hero from './components/Hero'
 import Benefits from './components/Benefits'
 import ContactForm from './components/ContactForm'
+import ExampleWidget from './components/ExampleWidget'
 import './App.css'
 
 function App() {
+  const flags = useFlags()
+  const { exampleWidget } = flags || {}
   const triggerTestError = () => {
     throw new Error('Test error from Sentry integration - this is intentional!')
   }
@@ -14,6 +18,7 @@ function App() {
 
   return (
     <div className="app">
+      {exampleWidget && <ExampleWidget />}
       <Hero />
       <Benefits />
       <ContactForm />
