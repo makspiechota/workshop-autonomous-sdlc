@@ -22,26 +22,6 @@ function App() {
       <Hero />
       <Benefits />
       <ContactForm />
-
-      {/* Test button - shows in dev or with ?test=true query parameter */}
-      {showTestButton && (
-        <div style={{ position: 'fixed', bottom: '20px', right: '20px', zIndex: 9999 }}>
-          <button
-            onClick={triggerTestError}
-            style={{
-              padding: '10px 20px',
-              backgroundColor: '#ff4444',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontWeight: 'bold'
-            }}
-          >
-            🔥 Test Sentry Error
-          </button>
-        </div>
-      )}
     </div>
   )
 }
