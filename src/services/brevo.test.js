@@ -69,16 +69,6 @@ describe('BrevoClient', () => {
     it.todo('never throws exceptions (returns error objects)')
   })
 
-  describe('Security', () => {
-    it.todo('includes API key in Authorization header with correct format')
-
-    it.todo('never exposes API key in error messages')
-
-    it.todo('never returns API key in response objects')
-
-    it.todo('never logs API key in console output')
-  })
-
   describe('Configuration', () => {
     it.todo('reads API key from environment variable')
 
