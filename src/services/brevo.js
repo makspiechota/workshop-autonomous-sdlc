@@ -11,15 +11,6 @@ export class BrevoClient {
     this.baseUrl = 'https://api.brevo.com/v3'
   }
 
-  /**
-   * Create a contact in Brevo CRM
-   * @param {Object} contactData - Contact information
-   * @param {string} contactData.email - Contact email (required)
-   * @param {string} [contactData.firstName] - First name (optional)
-   * @param {string} [contactData.lastName] - Last name (optional)
-   * @param {Object} [contactData.attributes] - Additional attributes (optional)
-   * @returns {Promise<{success: boolean, data?: any, error?: string}>}
-   */
   async createContact({ email, firstName, lastName, attributes = {} }) {
     // Check API key configuration first
     // Check for empty string before checking for undefined/null
