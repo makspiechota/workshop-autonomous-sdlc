@@ -63,4 +63,38 @@ describe('ContactForm', () => {
     expect(emailInput).toHaveValue('john@example.com')
     expect(messageInput).toHaveValue('I want to learn more about Software Factory')
   })
+
+  describe('Brevo CRM Integration (Story 000004, Chunk 2)', () => {
+    describe('Happy Path', () => {
+      it.todo('submits form and creates Brevo contact when flag is ON')
+
+      it.todo('shows success message after successful Brevo submission')
+
+      it.todo('clears form after successful submission')
+    })
+
+    describe('Feature Flag States', () => {
+      it.todo('creates Brevo contact when flag is ON')
+
+      it.todo('does NOT call Brevo when flag is OFF')
+
+      it.todo('treats undefined flag as OFF (no Brevo call)')
+
+      it.todo('shows no errors when flag is OFF')
+    })
+
+    describe('Error Handling', () => {
+      it.todo('shows error message when Brevo API fails')
+
+      it.todo('form remains functional when Brevo fails')
+
+      it.todo('logs errors without breaking user experience')
+    })
+
+    describe('Edge Cases', () => {
+      it.todo('handles form submission gracefully when flag is OFF')
+
+      it.todo('shows appropriate message when flag is OFF')
+    })
+  })
 })
