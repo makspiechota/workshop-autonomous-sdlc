@@ -1,8 +1,41 @@
 import { useForm, ValidationError } from '@formspree/react'
+import { useFlags } from 'launchdarkly-react-client-sdk'
+import { BrevoClient } from '../services/brevo'
 import './ContactForm.css'
 
 function ContactForm() {
-  const [state, handleSubmit] = useForm("xdkoorvg") // Placeholder form ID - needs to be replaced with actual Formspree ID
+  const [state, handleSubmit] = useForm(import.meta.env.VITE_FORMSPREE_FORM_ID || "xdkoorvg")
+  const { brevoIntegration } = useFlags() || {}
+
+  const onSubmit = async (e) => {
+    e.preventDefault()
+
+    const formData = new FormData(e.target)
+
+    // Feature flag: brevo-integration (kebab-case in LaunchDarkly, camelCase in code)
+    // undefined/false = OFF (safe default, no Brevo call)
+    // true = ON (Brevo integration active)
+    if (brevoIntegration) {
+      try {
+        const brevo = new BrevoClient()
+
+        const result = await brevo.createContact({
+          email: formData.get('email'),
+          firstName: formData.get('name'),
+          attributes: { message: formData.get('message') }
+        })
+
+        if (!result.success) {
+          console.error('Brevo integration failed:', result.error)
+        }
+      } catch (error) {
+        console.error('Brevo integration error:', error.message)
+      }
+    }
+
+    // Always proceed with normal form submission
+    handleSubmit(e)
+  }
 
   if (state.succeeded) {
     return (
@@ -23,7 +56,7 @@ function ContactForm() {
         can transform your team.
       </p>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         <div className="form-group">
           <label htmlFor="name">
             Name *
