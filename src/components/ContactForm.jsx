@@ -8,32 +8,32 @@ function ContactForm() {
   const flags = useFlags() || {}
   const brevoIntegration = flags['brevo-integration']
 
-  const onSubmit = async (e) => {
+  const onSubmit = (e) => {
     // Feature flag: brevo-integration (kebab-case in LaunchDarkly)
     // undefined/false = OFF (safe default, no Brevo call)
     // true = ON (Brevo integration active)
     if (brevoIntegration) {
       const formData = new FormData(e.target)
 
-      try {
-        const brevo = new BrevoClient()
-
-        const result = await brevo.createContact({
-          email: formData.get('email'),
-          firstName: formData.get('name'),
-          attributes: { message: formData.get('message') }
-        })
-
+      // Fire and forget - don't block form submission
+      const brevo = new BrevoClient()
+      brevo.createContact({
+        email: formData.get('email'),
+        firstName: formData.get('name'),
+        attributes: { message: formData.get('message') }
+      }).then(result => {
         if (!result.success) {
           console.error('Brevo integration failed:', result.error)
+        } else {
+          console.log('Brevo contact created:', result.data)
         }
-      } catch (error) {
+      }).catch(error => {
         console.error('Brevo integration error:', error.message)
-      }
+      })
     }
 
-    // Always proceed with normal form submission
-    await handleSubmit(e)
+    // Let Formspree handle submission normally (no await)
+    handleSubmit(e)
   }
 
   if (state.succeeded) {
