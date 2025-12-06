@@ -9,14 +9,12 @@ function ContactForm() {
   const brevoIntegration = flags['brevo-integration']
 
   const onSubmit = async (e) => {
-    e.preventDefault()
-
-    const formData = new FormData(e.target)
-
     // Feature flag: brevo-integration (kebab-case in LaunchDarkly)
     // undefined/false = OFF (safe default, no Brevo call)
     // true = ON (Brevo integration active)
     if (brevoIntegration) {
+      const formData = new FormData(e.target)
+
       try {
         const brevo = new BrevoClient()
 
@@ -35,7 +33,7 @@ function ContactForm() {
     }
 
     // Always proceed with normal form submission
-    handleSubmit(e)
+    await handleSubmit(e)
   }
 
   if (state.succeeded) {
