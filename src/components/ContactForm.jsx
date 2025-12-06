@@ -5,7 +5,7 @@ import './ContactForm.css'
 
 function ContactForm() {
   const [state, handleSubmit] = useForm(import.meta.env.VITE_FORMSPREE_FORM_ID || "xdkoorvg")
-  const { brevoIntegration } = useFlags()
+  const { brevoIntegration } = useFlags() || {}
 
   const onSubmit = async (e) => {
     e.preventDefault()
