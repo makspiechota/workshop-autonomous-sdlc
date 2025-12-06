@@ -5,14 +5,15 @@ import './ContactForm.css'
 
 function ContactForm() {
   const [state, handleSubmit] = useForm(import.meta.env.VITE_FORMSPREE_FORM_ID || "xdkoorvg")
-  const { brevoIntegration } = useFlags() || {}
+  const flags = useFlags() || {}
+  const brevoIntegration = flags['brevo-integration']
 
   const onSubmit = async (e) => {
     e.preventDefault()
 
     const formData = new FormData(e.target)
 
-    // Feature flag: brevo-integration (kebab-case in LaunchDarkly, camelCase in code)
+    // Feature flag: brevo-integration (kebab-case in LaunchDarkly)
     // undefined/false = OFF (safe default, no Brevo call)
     // true = ON (Brevo integration active)
     if (brevoIntegration) {

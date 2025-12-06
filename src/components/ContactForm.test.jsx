@@ -113,7 +113,7 @@ describe('ContactForm', () => {
           this.createContact = mockCreateContact
         })
 
-        useFlags.mockReturnValue({ brevoIntegration: true })
+        useFlags.mockReturnValue({ 'brevo-integration': true })
         useForm.mockReturnValue([
           { succeeded: false, submitting: false, errors: [] },
           vi.fn()
@@ -145,7 +145,7 @@ describe('ContactForm', () => {
           this.createContact = mockCreateContact
         })
 
-        useFlags.mockReturnValue({ brevoIntegration: false })
+        useFlags.mockReturnValue({ 'brevo-integration': false })
         useForm.mockReturnValue([
           { succeeded: false, submitting: false, errors: [] },
           vi.fn()
@@ -196,7 +196,7 @@ describe('ContactForm', () => {
 
       it('shows no errors when flag is OFF', async () => {
         // Arrange
-        useFlags.mockReturnValue({ brevoIntegration: false })
+        useFlags.mockReturnValue({ 'brevo-integration': false })
         useForm.mockReturnValue([
           { succeeded: false, submitting: false, errors: [] },
           vi.fn()
@@ -224,7 +224,7 @@ describe('ContactForm', () => {
           this.createContact = mockCreateContact
         })
 
-        useFlags.mockReturnValue({ brevoIntegration: true })
+        useFlags.mockReturnValue({ 'brevo-integration': true })
         useForm.mockReturnValue([
           { succeeded: false, submitting: false, errors: [] },
           vi.fn()
@@ -252,7 +252,7 @@ describe('ContactForm', () => {
           this.createContact = mockCreateContact
         })
 
-        useFlags.mockReturnValue({ brevoIntegration: true })
+        useFlags.mockReturnValue({ 'brevo-integration': true })
         const mockHandleSubmit = vi.fn()
         useForm.mockReturnValue([
           { succeeded: true, submitting: false, errors: [] },
@@ -267,7 +267,7 @@ describe('ContactForm', () => {
 
       it('clears form after successful submission', async () => {
         // Arrange
-        useFlags.mockReturnValue({ brevoIntegration: true })
+        useFlags.mockReturnValue({ 'brevo-integration': true })
         useForm.mockReturnValue([
           { succeeded: true, submitting: false, errors: [] },
           vi.fn()
@@ -293,7 +293,7 @@ describe('ContactForm', () => {
         })
 
         const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
-        useFlags.mockReturnValue({ brevoIntegration: true })
+        useFlags.mockReturnValue({ 'brevo-integration': true })
         useForm.mockReturnValue([
           { succeeded: false, submitting: false, errors: [] },
           vi.fn()
@@ -329,7 +329,7 @@ describe('ContactForm', () => {
           this.createContact = mockCreateContact
         })
 
-        useFlags.mockReturnValue({ brevoIntegration: true })
+        useFlags.mockReturnValue({ 'brevo-integration': true })
         useForm.mockReturnValue([
           { succeeded: false, submitting: false, errors: [] },
           vi.fn()
@@ -356,7 +356,7 @@ describe('ContactForm', () => {
         })
 
         const consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {})
-        useFlags.mockReturnValue({ brevoIntegration: true })
+        useFlags.mockReturnValue({ 'brevo-integration': true })
         useForm.mockReturnValue([
           { succeeded: false, submitting: false, errors: [] },
           vi.fn()
@@ -389,7 +389,7 @@ describe('ContactForm', () => {
           this.createContact = mockCreateContact
         })
 
-        useFlags.mockReturnValue({ brevoIntegration: false })
+        useFlags.mockReturnValue({ 'brevo-integration': false })
         const mockHandleSubmit = vi.fn()
         useForm.mockReturnValue([
           { succeeded: false, submitting: false, errors: [] },
@@ -412,7 +412,7 @@ describe('ContactForm', () => {
 
       it('shows appropriate message when flag is OFF', async () => {
         // Arrange
-        useFlags.mockReturnValue({ brevoIntegration: false })
+        useFlags.mockReturnValue({ 'brevo-integration': false })
         useForm.mockReturnValue([
           { succeeded: true, submitting: false, errors: [] },
           vi.fn()
